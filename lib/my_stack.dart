@@ -1,18 +1,18 @@
 import 'package:flutter_application_1/token.dart';
 
-class Node {
-  Tokens value;
+class Node<T> {
+  T value;
   Node? next;
 
   Node(this.value, [this.next]);
 }
 
-class MyStack {
+class MyStack<T> {
   Node? head;
 
   MyStack();
 
-  void push(Tokens value) {
+  void push(T value) {
     if (isEmpty()) {
       head = Node(value);
     } else {
@@ -21,7 +21,7 @@ class MyStack {
     }
   }
 
-  Tokens? pop() {
+  T? pop() {
     if (isEmpty()) {
       return null;
     }
@@ -47,7 +47,7 @@ class MyStack {
     return result;
   }
 
-  Tokens? peek() {
+  T? peek() {
     return head?.value;
   }
 

@@ -5,7 +5,7 @@ class PostfixConverter {
   List<Tokens> tokens;
   PostfixConverter(this.tokens);
 
-  convert() {
+  List<Tokens> convert() {
     MyStack stack = MyStack();
     int current = 0;
     List<Tokens> postfix = [];
@@ -38,8 +38,7 @@ class PostfixConverter {
             postfix.add(tk);
           }
           stack.push(currentToken);
-        } else if (currentToken.precedence! as int ==
-            (stack.peek()!.precedence as int)) {
+        } else {
           postfix.add(stack.pop()!);
           stack.push(currentToken);
         }
@@ -49,6 +48,6 @@ class PostfixConverter {
     while (!stack.isEmpty()) {
       postfix.add(stack.pop()!);
     }
-    print(postfix);
+    return postfix;
   }
 }

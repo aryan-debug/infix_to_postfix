@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/evaluate.dart';
 import 'package:flutter_application_1/notation_converter.dart';
+import 'package:flutter_application_1/token.dart';
 import 'package:flutter_application_1/tokenizer.dart';
-import 'my_stack.dart';
-import 'util.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
   final myController = TextEditingController();
   String notation = "";
+  String result = "";
 
   void getInput() {
     String input = myController.text;
@@ -38,7 +39,17 @@ class _MyHomePageState extends State<MyHomePage> {
     int i = 0;
     Tokenizer tokenizer = Tokenizer(input);
     PostfixConverter pc = PostfixConverter(tokenizer.tokenize());
-    pc.convert();
+    List<Tokens> postfix_tokens = pc.convert();
+    for (var token in postfix_tokens) {
+      String tokenValue = token.value.toString();
+      postfix += " $tokenValue ";
+    }
+    Evaluator ev = Evaluator(postfix_tokens);
+
+    setState(() {
+      notation = postfix;
+      result = ev.evaluate().toString();
+    });
   }
 
   @override
@@ -74,7 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: const Text("Infix to Postfix"))
                     ]),
                   ))),
-          Text(notation, style: const TextStyle(fontSize: 25))
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Postfix Notation: ",
+                  style: TextStyle(fontSize: 25),
+                ),
+                const SizedBox(height: 15),
+                Text(notation, style: const TextStyle(fontSize: 25))
+              ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const SizedBox(height: 30),
+            Text("Result: $result", style: const TextStyle(fontSize: 25))
+          ])
         ]),
       ),
     );
