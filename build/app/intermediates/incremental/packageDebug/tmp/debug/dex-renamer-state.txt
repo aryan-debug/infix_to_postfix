@@ -1,0 +1,4 @@
+#Sat Feb 18 16:04:29 PST 2023
+base.0=/home/aryan/Documents/projects/my_flutter_app/flutter_application_1/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
