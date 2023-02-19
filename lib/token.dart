@@ -23,23 +23,18 @@ class OpToken extends Tokens {
 
   @override
   String toString() {
-    return "Precedence: $precedence, Symbol: $value";
+    return "Precedence: $precedence Symbol: $value";
   }
 
   OpToken(this.tokenPrecedence, this.tokenValue);
 }
 
-class BracketToken extends Tokens {
-  static final openingBracket = BracketToken("(");
-  static final closingBracket = BracketToken(")");
+class OpeningBracket extends Tokens {
+  OpeningBracket();
+}
 
-  final String symbol;
-  BracketToken(this.symbol);
-
-  @override
-  String toString() {
-    return "Symbol: $symbol";
-  }
+class ClosingBracket extends Tokens {
+  ClosingBracket();
 }
 
 class NumberToken extends Tokens {

@@ -1,24 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/notation_converter.dart';
 import 'package:flutter_application_1/tokenizer.dart';
 import 'my_stack.dart';
 import 'util.dart';
-
-List<String> operators = ["+", "-", "*", "/"];
-
-int? getPrecedence(String char) {
-  if (char == "+") {
-    return 1;
-  }
-  if (char == "-") {
-    return 1;
-  }
-  if (char == "*") {
-    return 2;
-  }
-  if (char == "/") {
-    return 2;
-  }
-}
 
 void main() => runApp(MyApp());
 
@@ -51,9 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void getInput() {
     String input = myController.text;
     String postfix = "";
-    MyStack stack = MyStack();
     int i = 0;
     Tokenizer tokenizer = Tokenizer(input);
+    PostfixConverter pc = PostfixConverter(tokenizer.tokenize());
+    pc.convert();
   }
 
   @override

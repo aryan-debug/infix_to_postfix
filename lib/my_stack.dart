@@ -1,5 +1,7 @@
+import 'package:flutter_application_1/token.dart';
+
 class Node {
-  dynamic value;
+  Tokens value;
   Node? next;
 
   Node(this.value, [this.next]);
@@ -10,7 +12,7 @@ class MyStack {
 
   MyStack();
 
-  void push(dynamic value) {
+  void push(Tokens value) {
     if (isEmpty()) {
       head = Node(value);
     } else {
@@ -19,7 +21,7 @@ class MyStack {
     }
   }
 
-  dynamic pop() {
+  Tokens? pop() {
     if (isEmpty()) {
       return null;
     }
@@ -32,17 +34,20 @@ class MyStack {
     return size() == 0;
   }
 
-  void printStack() {
+  @override
+  String toString() {
+    String result = "";
     Node? current = head;
     Node? fakeHead = head;
     while (current != null) {
-      print(current.value);
+      result += current.value.toString() + "\n";
       current = fakeHead?.next;
       fakeHead = fakeHead?.next;
     }
+    return result;
   }
 
-  dynamic peek() {
+  Tokens? peek() {
     return head?.value;
   }
 

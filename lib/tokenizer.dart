@@ -24,16 +24,17 @@ class Tokenizer {
           tokens.add(OpToken.divideToken);
           break;
         case "(":
-          tokens.add(BracketToken.openingBracket);
+          tokens.add(OpeningBracket());
           break;
         case ")":
-          tokens.add(BracketToken.closingBracket);
+          tokens.add(ClosingBracket());
           break;
       }
       if (isNumeric(equation[current])) parseInt();
       current++;
     }
     tokens.add(EOFToken());
+    return tokens;
   }
 
   parseInt() {
