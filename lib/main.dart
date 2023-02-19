@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/tokenizer.dart';
 import 'my_stack.dart';
 import 'util.dart';
 
@@ -52,38 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String postfix = "";
     MyStack stack = MyStack();
     int i = 0;
-    while (i != input.length) {
-      String char = input[i];
-      if (isNumeric(char)) {
-        postfix = postfix + char;
-      }
-      // If the char is an operator, the stack is empty or contains '(' or ')', push it
-      if (operators.contains(char)) {
-        if (stack.isEmpty() || stack.peek() == ')' || stack.peek() == '(') {
-          stack.push(char);
-        }
-        if (getPrecedence(char)! > getPrecedence(stack.peek())! ||
-            stack.isEmpty()) {
-          stack.push(char);
-        }
-        if (getPrecedence(char)! < getPrecedence(stack.peek())!) {
-          debugPrint(stack.peek());
-          debugPrint(char);
-          while (!stack.isEmpty() &&
-              getPrecedence(char)! < getPrecedence(stack.peek())!) {
-            postfix = postfix + stack.pop();
-          }
-          stack.push(char);
-        }
-      }
-      i++;
-    }
-    while (!stack.isEmpty()) {
-      postfix = postfix + stack.pop();
-    }
-    setState(() {
-      notation = postfix;
-    });
+    Tokenizer tokenizer = Tokenizer(input);
   }
 
   @override
